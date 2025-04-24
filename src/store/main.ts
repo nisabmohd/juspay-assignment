@@ -1,11 +1,11 @@
-import { EachObject, initial_sprits } from "@/lib/utils";
+import { EachSprit, initial_sprits } from "@/lib/utils";
 import { create } from "zustand";
 
 type State = {
   isPlaying: boolean;
   actionModalOpen: boolean;
-  currentActionItemId: string | undefined;
-  sprits: EachObject[];
+  actionItemSelectedForModalId: string | undefined;
+  sprits: EachSprit[];
   currentActionIndex: number;
 };
 
@@ -16,7 +16,7 @@ type Action = {
 export const useMainStore = create<State & Action>((set) => ({
   isPlaying: false,
   actionModalOpen: false,
-  currentActionItemId: undefined,
+  actionItemSelectedForModalId: undefined,
   sprits: initial_sprits,
   currentActionIndex: 0,
   updateState: (data) => set((prev) => ({ ...prev, ...data })),

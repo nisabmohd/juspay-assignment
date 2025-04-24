@@ -11,7 +11,7 @@ export default function Sprit({ id }: { id: string }) {
   function handleAddAction() {
     updateState({
       actionModalOpen: true,
-      currentActionItemId: id,
+      actionItemSelectedForModalId: id,
     });
   }
 
@@ -23,11 +23,11 @@ export default function Sprit({ id }: { id: string }) {
     <div className="border rounded-2xl px-2 py-2 pb-4 flex flex-col gap-5 relative shadow-lg">
       <div className="grid grid-cols-1 justify-between ">
         <img
-          className="w-44 h-44 py-3 mx-auto"
+          className="w-28 h-32 py-1.5 mx-auto"
           src={currentSprit.image}
           alt={currentSprit.name}
         />
-        <div className="flex flex-col gap-2 pt-5 col-span-2">
+        <div className="flex flex-col gap-2 pt-2 col-span-2">
           <Input
             placeholder="Sprite name"
             value={currentSprit.name}
@@ -96,7 +96,7 @@ export default function Sprit({ id }: { id: string }) {
       <Button
         onClick={handleRemove}
         variant="secondary"
-        className="absolute top-0.5 right-0.5"
+        className="absolute top-1 right-1 size-6"
       >
         <XCircleIcon className="text-destructive" />
       </Button>

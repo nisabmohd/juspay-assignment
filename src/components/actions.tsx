@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { preset_actions } from "@/lib/utils";
 import { useMainStore } from "@/store/main";
@@ -12,13 +7,13 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 
 export default function ActionDialog() {
-  const { sprits, currentActionItemId, actionModalOpen, updateState } =
+  const { sprits, actionItemSelectedForModalId, actionModalOpen, updateState } =
     useMainStore();
 
   function closeActionModal() {
     updateState({
       actionModalOpen: false,
-      currentActionItemId: undefined,
+      actionItemSelectedForModalId: undefined,
     });
   }
 
@@ -38,22 +33,20 @@ export default function ActionDialog() {
           Actions
           <Button onClick={closeActionModal}>Done</Button>
         </DialogTitle>
-        <DialogDescription>
-          <Tabs defaultValue={currentActionItemId}>
-            <TabsList className="my-4">
-              {sprits.map((it) => (
-                <TabsTrigger key={it.id} value={it.id}>
-                  {it.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <Tabs defaultValue={actionItemSelectedForModalId}>
+          <TabsList className="my-4">
             {sprits.map((it) => (
-              <TabsContent key={it.id} value={it.id}>
-                <ActionSelector id={it.id} />
-              </TabsContent>
+              <TabsTrigger key={it.id} value={it.id}>
+                {it.name}
+              </TabsTrigger>
             ))}
-          </Tabs>
-        </DialogDescription>
+          </TabsList>
+          {sprits.map((it) => (
+            <TabsContent key={it.id} value={it.id}>
+              <ActionSelector id={it.id} />
+            </TabsContent>
+          ))}
+        </Tabs>
       </DialogContent>
     </Dialog>
   );
@@ -63,8 +56,6 @@ function ActionSelector({ id }: { id: string }) {
   const { sprits, updateState } = useMainStore();
   const currentSprit = sprits.find((it) => it.id == id)!;
   const [draggedActionId, setDraggedActionId] = useState<string>();
-
-  console.log(draggedActionId);
 
   function handleAddAction() {
     const newAction = preset_actions.find((it) => it.id == draggedActionId)!;
@@ -88,7 +79,7 @@ function ActionSelector({ id }: { id: string }) {
   }
 
   return (
-    <div className="grid grid-cols-2 h-[55vh]">
+    <div className="grid grid-cols-2 h-[55vh] text-sm">
       <div className="border-r flex flex-col gap-2 px-2">
         {preset_actions.map((it) => (
           <div
