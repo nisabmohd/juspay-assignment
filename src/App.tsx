@@ -6,7 +6,7 @@ import Reset from "./components/reset";
 
 export default function App() {
   return (
-    <div className="p-5 flex justify-between gap-8">
+    <div className="p-5 flex xl:flex-row flex-col justify-between gap-8">
       <div className="flex-[3] flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Logo />

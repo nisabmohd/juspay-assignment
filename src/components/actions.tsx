@@ -27,7 +27,7 @@ export default function ActionDialog() {
         onPointerDownOutside={avoidDefaultDomBehavior}
         onInteractOutside={avoidDefaultDomBehavior}
         showClose={false}
-        className="min-w-[70dvw] h-[70vh]"
+        className="min-w-[70dvw] md:h-[70vh]"
       >
         <DialogTitle className="flex justify-between items-center">
           Actions
@@ -80,7 +80,7 @@ function ActionSelector({ id }: { id: string }) {
 
   return (
     <div className="grid grid-cols-2 h-[55vh] text-sm">
-      <div className="border-r flex flex-col gap-2.5 px-2 pr-4">
+      <div className="border-r flex flex-col gap-2.5 px-2 pr-4 overflow-y-auto">
         {preset_actions.map((it) => (
           <div
             draggable
