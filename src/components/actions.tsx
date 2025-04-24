@@ -86,7 +86,7 @@ function ActionSelector({ id }: { id: string }) {
             draggable
             id={it.id}
             onDragStart={() => setDraggedActionId(it.id)}
-            className="bg-accent rounded-2xl py-3 px-4 cursor-grab"
+            className="bg-muted rounded-2xl py-3 px-4 cursor-grab"
             key={it.id}
           >
             {it.name}
@@ -99,7 +99,7 @@ function ActionSelector({ id }: { id: string }) {
       >
         {currentSprit.actions.map((it, idx) => (
           <div
-            className="bg-accent rounded-2xl py-3 px-4 flex items-center justify-between"
+            className="bg-muted rounded-2xl py-3 px-4 flex items-center justify-between"
             key={it.id + idx}
           >
             {it.name}
