@@ -4,7 +4,7 @@ import { createSpirit, getRandomId } from "@/lib/utils";
 import { useMainStore } from "@/store/main";
 
 export default function AddSprit() {
-  const { sprits, updateState } = useMainStore();
+  const { sprits, updateState, isPlaying } = useMainStore();
 
   return (
     <div>
@@ -14,7 +14,7 @@ export default function AddSprit() {
         hidden
         accept="image/*"
         onChange={(e) => {
-          if (e.target.files) {
+          if (e.target.files && !isPlaying) {
             const file = e.target.files[0];
             const asUrl = URL.createObjectURL(file);
             const allSprits = [...sprits, createSpirit(asUrl, getRandomId(6))];

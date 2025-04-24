@@ -7,7 +7,7 @@ import { spriteSize } from "@/lib/utils";
 const elementId = "plane-rect";
 
 export default function Sprit({ id }: { id: string }) {
-  const { sprits, updateState } = useMainStore();
+  const { sprits, updateState, isPlaying } = useMainStore();
   const currentSprit = sprits.find((it) => it.id == id);
   if (!currentSprit) return null;
 
@@ -32,6 +32,7 @@ export default function Sprit({ id }: { id: string }) {
         />
         <div className="flex flex-col gap-2 pt-2 col-span-2">
           <Input
+            disabled={isPlaying}
             placeholder="Sprite name"
             value={currentSprit.name}
             onChange={(e) => {
@@ -49,6 +50,7 @@ export default function Sprit({ id }: { id: string }) {
           />
           <div className="grid grid-cols-2 gap-2 ">
             <Input
+              disabled={isPlaying}
               type="number"
               placeholder="X"
               value={currentSprit.curentPosition.x}
@@ -79,6 +81,7 @@ export default function Sprit({ id }: { id: string }) {
               }}
             />
             <Input
+              disabled={isPlaying}
               type="number"
               placeholder="Y"
               value={currentSprit.curentPosition.y}
@@ -109,7 +112,7 @@ export default function Sprit({ id }: { id: string }) {
               }}
             />
           </div>
-          <Button onClick={handleAddAction}>
+          <Button disabled={isPlaying} onClick={handleAddAction}>
             <BadgePlusIcon />
             Add Actions
           </Button>
@@ -117,6 +120,7 @@ export default function Sprit({ id }: { id: string }) {
       </div>
 
       <Button
+        disabled={isPlaying}
         onClick={handleRemove}
         variant="secondary"
         className="absolute top-1 right-1 size-6"
