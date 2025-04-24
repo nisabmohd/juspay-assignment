@@ -86,7 +86,7 @@ function ActionSelector({ id }: { id: string }) {
             draggable
             id={it.id}
             onDragStart={() => setDraggedActionId(it.id)}
-            className="bg-accent rounded-2xl py-3 px-4 cursor-pointer"
+            className="bg-accent rounded-2xl py-3 px-4 cursor-grab"
             key={it.id}
           >
             {it.name}
@@ -94,7 +94,7 @@ function ActionSelector({ id }: { id: string }) {
         ))}
       </div>
       <div
-        className="flex flex-col gap-2.5 px-2 pl-4"
+        className="flex flex-col gap-2.5 px-2 pl-4 overflow-y-auto"
         onDragEnterCapture={handleAddAction}
       >
         {currentSprit.actions.map((it, idx) => (

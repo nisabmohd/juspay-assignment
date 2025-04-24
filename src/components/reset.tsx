@@ -9,6 +9,8 @@ export default function Reset() {
     const orignalSprits = sprits.map((s) => ({
       ...s,
       curentPosition: s.initialPosition,
+      message: undefined,
+      rotatedDirection: undefined,
     }));
 
     updateState({

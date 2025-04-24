@@ -13,21 +13,37 @@ export function getRandomId(length = 12): string {
 
 export function getRandomPoints(boundX: number, boundY: number): Point {
   return {
-    x: Math.random() * 2 * boundX - boundX,
-    y: Math.random() * 2 * boundY - boundY,
+    x: Math.round(Math.random() * boundX),
+    y: Math.round(Math.random() * boundY),
   };
 }
 
-export type ActionCallback = (ref: HTMLImageElement) => void;
+type MoveAction = {
+  type: "move";
+  dir: null | {
+    x?: number;
+    y?: number;
+  };
+};
 
-export type ActionLike = "rotate" | "move" | "label" | "repeat";
+type LableAction = {
+  type: "label";
+  message: string;
+};
+
+type RepeatAction = {
+  type: "repeat";
+};
+
+type RotateAction = {
+  type: "rotate";
+  degree: number;
+};
 
 export type Action = {
   name: string;
-  perform?: ActionCallback;
-  type: ActionLike;
   id: string;
-};
+} & (RotateAction | RepeatAction | LableAction | MoveAction);
 
 export type Point = {
   x: number;
@@ -41,7 +57,7 @@ export type EachSprit = {
   name: string;
   actions: Action[];
   image: string;
-  rotatedDirection?: 360 | 180 | 90;
+  rotatedDirection?: number;
   message?: string;
 };
 
@@ -50,46 +66,63 @@ export const preset_actions = [
     id: "45wgs",
     name: "Move X by +50",
     type: "move",
+    dir: {
+      x: 50,
+    },
   },
   {
     id: "234dsf",
     name: "Move X by -50",
     type: "move",
+    dir: {
+      x: -50,
+    },
   },
   {
     id: "4kjc3",
     name: "Move Y by +50",
     type: "move",
+    dir: {
+      y: 50,
+    },
   },
   {
     id: "wer345",
     name: "Move Y by -50",
     type: "move",
+    dir: {
+      y: -50,
+    },
   },
   {
     id: "aqw345",
     name: "Move to random X,Y",
     type: "move",
+    dir: null,
   },
   {
     id: "sdku98",
     name: "Say Hello",
     type: "label",
+    message: "Hello",
   },
   {
     id: "wa3436",
     name: "Say Bye",
     type: "label",
+    message: "Bye",
   },
   {
     id: "8695vb3",
     name: "Rotate 360°",
     type: "rotate",
+    degree: 360,
   },
   {
     id: "12353fd",
     name: "Rotate 180°",
     type: "rotate",
+    degree: 180,
   },
   {
     id: "34ccsdv",
