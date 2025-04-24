@@ -136,8 +136,8 @@ export const initial_sprits: EachSprit[] = [
     "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F%E2%80%94Pngtree%E2%80%94basketball%20ball%20illustration_8792111.png?alt=media&token=b1c86835-86cc-4949-90e7-22fdcf3bce8a",
     "Basketball",
     {
-      x: 690,
-      y: 450,
+      x: 90,
+      y: 45,
     }
   ),
 ];
