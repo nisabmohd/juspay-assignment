@@ -13,7 +13,7 @@ export default function Reset() {
 
     updateState({
       isPlaying: false,
-      currentActionIndex: 0,
+      currentActionIndexes: undefined,
       sprits: orignalSprits,
     });
   }

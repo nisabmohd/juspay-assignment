@@ -6,7 +6,7 @@ type State = {
   actionModalOpen: boolean;
   actionItemSelectedForModalId: string | undefined;
   sprits: EachSprit[];
-  currentActionIndex: number;
+  currentActionIndexes: number[] | undefined;
 };
 
 type Action = {
@@ -18,6 +18,6 @@ export const useMainStore = create<State & Action>((set) => ({
   actionModalOpen: false,
   actionItemSelectedForModalId: undefined,
   sprits: initial_sprits,
-  currentActionIndex: 0,
+  currentActionIndexes: undefined,
   updateState: (data) => set((prev) => ({ ...prev, ...data })),
 }));

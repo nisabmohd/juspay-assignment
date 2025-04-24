@@ -80,13 +80,13 @@ function ActionSelector({ id }: { id: string }) {
 
   return (
     <div className="grid grid-cols-2 h-[55vh] text-sm">
-      <div className="border-r flex flex-col gap-2 px-2">
+      <div className="border-r flex flex-col gap-2.5 px-2 pr-4">
         {preset_actions.map((it) => (
           <div
             draggable
             id={it.id}
             onDragStart={() => setDraggedActionId(it.id)}
-            className="bg-accent rounded-2xl py-2 px-4 cursor-pointer"
+            className="bg-accent rounded-2xl py-3 px-4 cursor-pointer"
             key={it.id}
           >
             {it.name}
@@ -94,12 +94,12 @@ function ActionSelector({ id }: { id: string }) {
         ))}
       </div>
       <div
-        className="flex flex-col gap-2 px-2"
+        className="flex flex-col gap-2.5 px-2 pl-4"
         onDragEnterCapture={handleAddAction}
       >
         {currentSprit.actions.map((it, idx) => (
           <div
-            className="bg-accent rounded-2xl py-2 px-4 flex items-center justify-between"
+            className="bg-accent rounded-2xl py-3 px-4 flex items-center justify-between"
             key={it.id + idx}
           >
             {it.name}

@@ -3,10 +3,13 @@ import { Button } from "./ui/button";
 import { useMainStore } from "@/store/main";
 
 export default function Play() {
-  const { updateState } = useMainStore();
+  const { sprits, updateState } = useMainStore();
 
   function handlePlayStart() {
-    updateState({ isPlaying: true, currentActionIndex: 0 });
+    updateState({
+      isPlaying: true,
+      currentActionIndexes: new Array(sprits.length).fill(0),
+    });
   }
 
   return (
