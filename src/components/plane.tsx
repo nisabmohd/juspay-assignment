@@ -1,4 +1,9 @@
-import { allPerformed, getRandomPoints } from "@/lib/utils";
+import {
+  allPerformed,
+  EachSprit,
+  getRandomPoints,
+  spriteSize,
+} from "@/lib/utils";
 import { useMainStore } from "@/store/main";
 import { useEffect, useRef } from "react";
 
@@ -52,20 +57,27 @@ export default function Plane() {
 
       if (action.type == "move") {
         if (action.dir) {
-          s.curentPosition = {
-            x: action.dir.x
-              ? s.curentPosition.x + action.dir.x
-              : s.curentPosition.x,
-            y: action.dir.y
-              ? s.curentPosition.y + action.dir.y
-              : s.curentPosition.y,
-          };
+          const container = boxRef.current;
+          if (!container) return;
+
+          const rect = container.getBoundingClientRect();
+
+          let newX = s.curentPosition.x + (action.dir.x || 0);
+          let newY = s.curentPosition.y + (action.dir.y || 0);
+
+          newX = Math.max(0, Math.min(rect.width - spriteSize, newX));
+          newY = Math.max(0, Math.min(rect.height - spriteSize, newY));
+
+          s.curentPosition = { x: newX, y: newY };
         } else {
           const rect = boxRef.current?.getBoundingClientRect();
           if (!rect) return;
-          const boundX = rect.width / 2;
-          const boundY = rect.height / 2;
+
+          const boundX = rect.width - spriteSize;
+          const boundY = rect.height - spriteSize;
+
           s.curentPosition = getRandomPoints(boundX, boundY);
+
           s.message = undefined;
           s.rotatedDirection = undefined;
         }
@@ -80,13 +92,43 @@ export default function Plane() {
     //
   }, [isPlaying, currentActionIndexes, sprits, updateState]);
 
+  function handleImageDragOnPlane(
+    e: React.DragEvent<HTMLDivElement>,
+    s: EachSprit
+  ) {
+    if (isPlaying) return;
+
+    const container = boxRef.current;
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+
+    let x = e.clientX - containerRect.left;
+    let y = e.clientY - containerRect.top;
+
+    x = Math.max(0, Math.min(containerRect.width - spriteSize, x));
+    y = Math.max(0, Math.min(containerRect.height - spriteSize, y));
+
+    const newPos = { x, y };
+
+    const spritCopy = sprits.map((sc) =>
+      sc.id !== s.id ? sc : { ...sc, curentPosition: newPos }
+    );
+
+    updateState({ sprits: spritCopy });
+  }
+
   return (
     <div
+      id="plane-rect"
       ref={boxRef}
       className="border h-[91vh] rounded-2xl flex shadow-lg relative"
     >
       {sprits.map((s) => (
         <div
+          draggable
+          onDrag={(e) => handleImageDragOnPlane(e, s)}
+          onDragEnd={(e) => handleImageDragOnPlane(e, s)}
           key={s.id}
           className="absolute transition-all duration-1000 ease-in-out cursor-grab"
           style={{
@@ -102,7 +144,6 @@ export default function Plane() {
             )}
 
             <img
-              draggable
               className="w-28 h-28 absolute transition-transform duration-300 ease-in-out"
               style={{
                 transform: `rotate(${s.rotatedDirection ?? 0}deg)`,

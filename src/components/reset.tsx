@@ -18,6 +18,14 @@ export default function Reset() {
       currentActionIndexes: undefined,
       sprits: orignalSprits,
     });
+
+    setTimeout(() => {
+      updateState({
+        isPlaying: false,
+        currentActionIndexes: undefined,
+        sprits: orignalSprits,
+      });
+    }, 500);
   }
 
   return (

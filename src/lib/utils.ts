@@ -161,3 +161,5 @@ export function allPerformed(indexes: number[], sprits: EachSprit[]) {
   }
   return true;
 }
+
+export const spriteSize = 112;

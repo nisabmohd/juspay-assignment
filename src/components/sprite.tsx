@@ -2,6 +2,9 @@ import { BadgePlusIcon, XCircleIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useMainStore } from "@/store/main";
+import { spriteSize } from "@/lib/utils";
+
+const elementId = "plane-rect";
 
 export default function Sprit({ id }: { id: string }) {
   const { sprits, updateState } = useMainStore();
@@ -50,11 +53,21 @@ export default function Sprit({ id }: { id: string }) {
               placeholder="X"
               value={currentSprit.curentPosition.x}
               onChange={(e) => {
+                const newX = e.target.valueAsNumber;
+                const container = document.getElementById(elementId);
+                if (!container) return;
+
+                const rect = container.getBoundingClientRect();
+                const clampedX = Math.max(
+                  0,
+                  Math.min(rect.width - spriteSize, newX)
+                );
+
                 const currentSpritUpdated = {
                   ...currentSprit,
                   curentPosition: {
                     ...currentSprit.curentPosition,
-                    x: e.target.valueAsNumber,
+                    x: clampedX,
                   },
                 };
 
@@ -70,11 +83,21 @@ export default function Sprit({ id }: { id: string }) {
               placeholder="Y"
               value={currentSprit.curentPosition.y}
               onChange={(e) => {
+                const newY = e.target.valueAsNumber;
+                const container = document.getElementById(elementId);
+                if (!container) return;
+
+                const rect = container.getBoundingClientRect();
+                const clampedY = Math.max(
+                  0,
+                  Math.min(rect.height - spriteSize, newY)
+                );
+
                 const currentSpritUpdated = {
                   ...currentSprit,
                   curentPosition: {
                     ...currentSprit.curentPosition,
-                    y: e.target.valueAsNumber,
+                    y: clampedY,
                   },
                 };
 
