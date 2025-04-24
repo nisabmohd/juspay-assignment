@@ -134,21 +134,25 @@ export const preset_actions = [
 export const initial_sprits: EachSprit[] = [
   createSpirit(
     "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F%E2%80%94Pngtree%E2%80%94basketball%20ball%20illustration_8792111.png?alt=media&token=b1c86835-86cc-4949-90e7-22fdcf3bce8a",
-    "Basketball"
-  ),
-  createSpirit(
-    "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2Fvecteezy_black-and-white-soccer-ball-cutout-on-transparent-background_49400456.png?alt=media&token=d8cc3f2a-9d86-4628-af87-51260da56cb5",
-    "Football"
+    "Basketball",
+    {
+      x: 690,
+      y: 450,
+    }
   ),
 ];
 
-export function createSpirit(image: string, name: string): EachSprit {
+export function createSpirit(
+  image: string,
+  name: string,
+  pos?: Point
+): EachSprit {
   return {
     id: getRandomId(),
     name,
     image,
-    initialPosition: { x: 0, y: 0 },
-    curentPosition: { x: 0, y: 0 },
+    initialPosition: pos ?? { x: 0, y: 0 },
+    curentPosition: pos ?? { x: 0, y: 0 },
     actions: [],
   };
 }
