@@ -131,7 +131,7 @@ export const preset_actions = [
   },
 ] as const satisfies Action[];
 
-export const initial_sprits: EachSprit[] = [
+const preset_sprits = [
   createSpirit(
     "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2F%E2%80%94Pngtree%E2%80%94basketball%20ball%20illustration_8792111.png?alt=media&token=b1c86835-86cc-4949-90e7-22fdcf3bce8a",
     "Basketball",
@@ -140,7 +140,36 @@ export const initial_sprits: EachSprit[] = [
       y: 0,
     }
   ),
+  createSpirit(
+    "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2Fmikasa-sports-beach-volleyball-mikasa-mva-200-volleyball-8ca4f5fa937137e132d6b3ba44bc1ad8.png?alt=media&token=bb382cf3-feeb-4ff9-ae19-7eb6d243feac",
+    "Volleyball",
+    {
+      x: 20,
+      y: 20,
+    }
+  ),
+  createSpirit(
+    "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2Fvecteezy_black-and-white-soccer-ball-cutout-on-transparent-background_49400456.png?alt=media&token=fe82f589-9912-4c0e-8d01-11b65fa5cd81",
+    "Football",
+    {
+      x: 50,
+      y: 50,
+    }
+  ),
+  createSpirit(
+    "https://firebasestorage.googleapis.com/v0/b/upload-pics-e599e.appspot.com/o/images%2Fpngimg.com%20-%20baseball_PNG19024.png?alt=media&token=d50a627f-e976-4833-b22f-73e3d94cc97f",
+    "Baseball",
+    {
+      x: 90,
+      y: 110,
+    }
+  ),
 ];
+
+export function getNextSprit(alreadyThere: string[]) {
+  if (alreadyThere.length == preset_sprits.length) return undefined;
+  return preset_sprits.filter((it) => !alreadyThere.includes(it.name))?.[0];
+}
 
 export function createSpirit(
   image: string,

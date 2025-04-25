@@ -1,31 +1,29 @@
 import { PlusIcon } from "lucide-react";
-import { buttonVariants } from "./ui/button";
-import { createSpirit, getRandomId } from "@/lib/utils";
+import { Button } from "./ui/button";
 import { useMainStore } from "@/store/main";
+import { getNextSprit } from "@/lib/utils";
+import { useMemo } from "react";
 
 export default function AddSprit() {
-  const { sprits, updateState, isPlaying } = useMainStore();
+  const { updateState, isPlaying, sprits } = useMainStore();
+
+  function handleAdd() {
+    const s = getNextSprit(sprits.map((it) => it.name));
+    if (s)
+      updateState({
+        sprits: [...sprits, s],
+      });
+  }
+
+  const haveNextSprit = useMemo(
+    () => !!getNextSprit(sprits.map((it) => it.name)),
+    [sprits]
+  );
 
   return (
-    <div>
-      <input
-        type="file"
-        id="add-sprit"
-        hidden
-        accept="image/*"
-        onChange={(e) => {
-          if (e.target.files && !isPlaying) {
-            const file = e.target.files[0];
-            const asUrl = URL.createObjectURL(file);
-            const allSprits = [...sprits, createSpirit(asUrl, getRandomId(6))];
-            updateState({ sprits: allSprits });
-          }
-        }}
-      />
-      <label htmlFor="add-sprit" className={buttonVariants()}>
-        <PlusIcon />
-        Add
-      </label>
-    </div>
+    <Button disabled={!haveNextSprit || isPlaying} onClick={handleAdd}>
+      <PlusIcon />
+      Add
+    </Button>
   );
 }

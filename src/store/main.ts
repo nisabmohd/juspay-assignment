@@ -1,4 +1,4 @@
-import { EachSprit, initial_sprits } from "@/lib/utils";
+import { EachSprit } from "@/lib/utils";
 import { create } from "zustand";
 
 type State = {
@@ -17,7 +17,7 @@ export const useMainStore = create<State & Action>((set) => ({
   isPlaying: false,
   actionModalOpen: false,
   actionItemSelectedForModalId: undefined,
-  sprits: initial_sprits,
+  sprits: [],
   currentActionIndexes: undefined,
   updateState: (data) => set((prev) => ({ ...prev, ...data })),
 }));
