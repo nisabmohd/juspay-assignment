@@ -24,7 +24,7 @@ export default function Plane() {
       map.get(key)!.push(it);
     });
 
-    map.values().forEach((it) => {
+    [...map.values()].forEach((it) => {
       if (it.length == 2) {
         const first = it[0]!;
         const second = it[1]!;
