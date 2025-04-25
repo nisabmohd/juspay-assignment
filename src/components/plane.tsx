@@ -16,6 +16,31 @@ export default function Plane() {
   useEffect(() => {
     if (!isPlaying || !currentActionIndexes) return;
 
+    // Hero feature
+    const map = new Map<string, EachSprit[]>();
+    sprits.forEach((it) => {
+      const key = JSON.stringify(it.curentPosition);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(it);
+    });
+
+    map.values().forEach((it) => {
+      if (it.length == 2) {
+        const first = it[0]!;
+        const second = it[1]!;
+        if (
+          (first.curentPosition.x == first.initialPosition.x &&
+            first.curentPosition.y == first.initialPosition.y) ||
+          (second.curentPosition.x == second.initialPosition.x &&
+            second.curentPosition.y == second.initialPosition.y)
+        )
+          return;
+        [first.actions, second.actions] = [second.actions, first.actions];
+        updateState({ sprits });
+        return;
+      }
+    });
+
     console.log("inside effect");
 
     if (allPerformed(currentActionIndexes, sprits)) {
